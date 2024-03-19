@@ -24,9 +24,9 @@ export default function Indicator() {
         <Typography variant="body2" color="#fff">
           10680 Participants
         </Typography>
-        <Typography variant="body2" color="#fff">
+        {/* <Typography variant="body2" color="#fff">
           Listing Price = $0.05
-        </Typography>
+        </Typography> */}
       </Stack>
     </Stack>
   );

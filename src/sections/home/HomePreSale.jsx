@@ -1,8 +1,10 @@
-import { Box, Button, Card, Link, Stack, Typography } from '@mui/material';
+/* eslint-disable no-unused-vars */
+import { Box, Button, Card, Link, Stack, Typography, useScrollTrigger } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Indicator from '../../components/Indicator';
 import SupportTokens from '../../components/SupportTokens';
 import WalletConnectForm from '../../components/WalletConnectForm';
+import { useState } from 'react';
 
 const TOKENS = [
   {
@@ -44,6 +46,8 @@ const ButtonStyle = styled(Button)(({ theme }) => ({
 }));
 
 export default function HomePreSale() {
+
+  const [token, setToken] = useState('')
   return (
     <RootStyle>
       <Box mx={20}>
@@ -87,9 +91,9 @@ export default function HomePreSale() {
               </Typography>
 
               <Indicator />
-              <SupportTokens tokens={TOKENS} />
+              <SupportTokens tokens={TOKENS} setToken={setToken}/>
 
-              <WalletConnectForm />
+              <WalletConnectForm token={token}/>
 
               <Link>
                 <Typography>How to Buy</Typography>
