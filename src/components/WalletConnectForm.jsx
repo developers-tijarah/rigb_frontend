@@ -39,7 +39,7 @@ export default function WalletConnectForm({token}) {
   useEffect(()=>{
     const init =async()=>{
       const contract = await providerWC_Contract(walletProvider)
-      const price = await contract.methods.priceInUSDT().call();
+      const price = await contract.methods.getLatestETHPrice().call();
       setPrice(devidor(price, chainId))
     }
     init()
@@ -79,6 +79,16 @@ export default function WalletConnectForm({token}) {
     }
   }
 
+  const valueConvrtor = (val)=>{
+    if(token === "USDT"){
+      return val
+    }
+    else{
+     
+      return Number(price) * Number(val)
+    }
+  }
+
 
   return (
     <Stack
@@ -109,7 +119,7 @@ export default function WalletConnectForm({token}) {
             Amount in $ROYAL you receive
           </Typography>
         </FormLabel>
-        <InputStyle disabled value={Number(price)*Number(enteredamount)} label="Amount in USDT" fullWidth />
+        <InputStyle disabled value={valueConvrtor(enteredamount)} label="Amount in USDT" fullWidth />
       </Stack>
 
       <Button
