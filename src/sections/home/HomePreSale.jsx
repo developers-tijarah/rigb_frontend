@@ -4,7 +4,9 @@ import { styled } from '@mui/material/styles';
 import Indicator from '../../components/Indicator';
 import SupportTokens from '../../components/SupportTokens';
 import WalletConnectForm from '../../components/WalletConnectForm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useWeb3Modal, useWeb3ModalAccount, useWeb3ModalProvider } from '@web3modal/ethers/react';
+import { Fixprovider_Contract, devidor, providerWC_Contract } from '../../Web3/Connection';
 
 const TOKENS = [
   {
@@ -48,6 +50,21 @@ const ButtonStyle = styled(Button)(({ theme }) => ({
 export default function HomePreSale() {
 
   const [token, setToken] = useState('')
+
+  const { address, chainId } = useWeb3ModalAccount()
+  const { walletProvider } = useWeb3ModalProvider()
+  const [totalUsdtraised, setTotalUSDTRaised] = useState(0)
+
+  useEffect(()=>{
+    const init =async()=>{
+      const contract = await Fixprovider_Contract(walletProvider)
+      const price = await contract.methods.totalUSDTRaised().call();
+      setTotalUSDTRaised(devidor(price, chainId))
+    }
+    init()
+  },[address, walletProvider, chainId])
+
+
   return (
     <RootStyle>
       <Box mx={20}>
@@ -90,7 +107,7 @@ export default function HomePreSale() {
                 ROYAL Pre-Sale
               </Typography>
 
-              <Indicator />
+              <Indicator totalUsdtraised={totalUsdtraised}/>
               <SupportTokens tokens={TOKENS} setToken={setToken}/>
 
               <WalletConnectForm token={token}/>

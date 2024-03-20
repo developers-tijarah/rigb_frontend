@@ -50,8 +50,8 @@ export default function WalletConnectForm({token}) {
     try {
       const contract = await providerWC_Contract(walletProvider)
       if(token === "ETH" || token === "BNB"){
-        const a = devidorConvertor(enteredamount, chainId, walletProvider)
-        const data = await contract.methods.buyTokensWithETH().send({from:address,  gasPrice:"30000000000"})
+        const a = devidorConvertor(enteredamount, walletProvider)
+        const data = await contract.methods.buyTokensWithETH().send({from:address,value:a,  gasPrice:"30000000000"})
         if(data.status){
           notify("Success")
         }

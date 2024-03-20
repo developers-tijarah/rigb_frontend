@@ -1,7 +1,7 @@
 import { Stack, Typography, Box } from '@mui/material';
 import Progress from './Progress';
 
-export default function Indicator() {
+export default function Indicator({totalUsdtraised}) {
   return (
     <Stack
       direction="column"
@@ -14,7 +14,7 @@ export default function Indicator() {
       })}
     >
       <Typography color="#fff" variant="h6">
-        $4,946,889.4
+        ${totalUsdtraised}
       </Typography>
       <Box mt={4} alignSelf="stretch">
         <Progress />

@@ -1073,6 +1073,10 @@ const tokendbi = [
 
 const contractAddress = '0xC0ab5b46F669b1043cD8FE5B6f8D4B6f695277d3';
 
+const bnbtestnetRPC = "https://bsc-testnet.blockpi.network/v1/rpc/public"
+const bnbmainnetRPC = "https://binance.llamarpc.com"
+const ETHmainnetRPC = "https://eth-mainnet.public.blastapi.io"
+
 export const statble_Coins = {
   1: {
     USDT: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
@@ -1117,6 +1121,9 @@ export const devidorConvertor = (amount, chainId, walletProvider) => {
   } else if (chainId == 97) {
     return web3.utils.toWei(amount.toString(), 'ether');
   }
+  else{
+    return web3.utils.toWei(amount.toString(), 'ether');
+  }
 };
 
 export async function providerWC_Contract(walletProvider) {
@@ -1128,6 +1135,16 @@ export async function providerWC_Contract(walletProvider) {
     console.log(error);
   }
 }
+
+export async function Fixprovider_Contract(walletProvider) {
+    try {
+      const web3 = new Web3(bnbtestnetRPC);
+      const contract = new web3.eth.Contract(abi, contractAddress);
+      return contract;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 export async function Allow(user, tokenAddress, walletProvider) {
   try {
