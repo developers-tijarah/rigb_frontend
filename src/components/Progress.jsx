@@ -11,10 +11,10 @@ export default function Progress() {
   }));
   return (
     <Stack direction="column" gap={1}>
-      <Typography color="#fff" textAlign='center'>{`Starting in`}</Typography>
+      <Typography color="#fff" textAlign='center'>{`Ends in`}</Typography>
       {/* <ProgressBarStyle /> */}
       
-      <Typography textAlign="center" color="#fff">
+      <Typography textAlign="center" color="#fff" fontSize={28}>
       <Countdown date={1717200048000} />
       </Typography>
     </Stack>

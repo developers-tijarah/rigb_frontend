@@ -21,9 +21,9 @@ export default function Indicator({totalUsdtraised}) {
       </Box>
 
       <Stack mt={4} direction="column" alignItems="center">
-        <Typography variant="body2" color="#fff">
+        {/* <Typography variant="body2" color="#fff">
           10680 Participants
-        </Typography>
+        </Typography> */}
         {/* <Typography variant="body2" color="#fff">
           Listing Price = $0.05
         </Typography> */}
