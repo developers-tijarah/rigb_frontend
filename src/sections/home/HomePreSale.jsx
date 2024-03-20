@@ -57,7 +57,7 @@ export default function HomePreSale() {
 
   useEffect(()=>{
     const init =async()=>{
-      const contract = await Fixprovider_Contract(walletProvider)
+      const contract = await Fixprovider_Contract()
       const price = await contract.methods.totalUSDTRaised().call();
       setTotalUSDTRaised(devidor(price, chainId))
     }

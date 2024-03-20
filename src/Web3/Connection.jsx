@@ -1110,6 +1110,9 @@ export const devidor = (amount, chainId) => {
   } else if (chainId == 97) {
     return Number(amount) / 10 ** 18;
   }
+  else{
+    return Number(amount) / 10 ** 18;
+  }
 };
 
 export const devidorConvertor = (amount, chainId, walletProvider) => {
@@ -1138,7 +1141,7 @@ export async function providerWC_Contract(walletProvider) {
 
 export async function Fixprovider_Contract(walletProvider) {
     try {
-      const web3 = new Web3(bnbtestnetRPC);
+      const web3 = new Web3(new Web3.providers.HttpProvider(bnbtestnetRPC));
       const contract = new web3.eth.Contract(abi, contractAddress);
       return contract;
     } catch (error) {
