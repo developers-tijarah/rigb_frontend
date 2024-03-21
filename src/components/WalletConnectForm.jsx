@@ -6,7 +6,7 @@ import { useWeb3Modal } from '@web3modal/ethers/react';
 import { useWeb3ModalAccount, useWeb3ModalProvider } from '@web3modal/ethers/react';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Allow, Approve, devidor, devidorConvertor, providerWC_Contract, statble_Coins } from '../Web3/Connection';
+import { Allow, Approve, chain_Native_Token, devidor, devidorConvertor, providerWC_Contract, statble_Coins } from '../Web3/Connection';
 import { useTheme } from '@emotion/react';
 import Iconify from './Iconify';
 
@@ -105,7 +105,7 @@ export default function WalletConnectForm({ token }) {
           variant="filled"
           fullWidth
           size="small"
-          label="Amount in USDT you pay"
+          label={`Amount in ${chainId ? chain_Native_Token[`${chainId}`] : `eth`}`}
           InputProps={{ disableUnderline: true }}
           onChange={(e) => setEnteredAmount(e.target.value)}
         />

@@ -2,7 +2,7 @@
 import { Button, Typography, Stack, styled } from '@mui/material';
 import { useWeb3ModalAccount } from '@web3modal/ethers/react';
 import PropTypes from 'prop-types';
-import { chain_Native_Token } from '../Web3/Connection';
+import { chain_Native_Token, chain_Native_Token_logo } from '../Web3/Connection';
 import Iconify from './Iconify';
 
 const StyledTokenCard = styled(Button)(({ theme }) => ({
@@ -76,9 +76,9 @@ export default function SupportTokens({ setToken }) {
           }}
         >
           <Stack direction="row" spacing={1} p={1} alignItems="center">
-            <Iconify icon={'cryptocurrency-color:eth'} width={32} height={32} />
+            <Iconify icon={`cryptocurrency-color:${chainId ? chain_Native_Token_logo[`${chainId}`] : `eth`}`} width={32} height={32} />
             <Typography variant="body2" color="primary">
-              {'ETH'}
+              {chainId ? chain_Native_Token[`${chainId}`] : 'ETH'}
             </Typography>
           </Stack>
         </StyledTokenCard>

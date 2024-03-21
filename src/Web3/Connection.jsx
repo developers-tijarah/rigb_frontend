@@ -1102,6 +1102,12 @@ export const chain_Native_Token = {
   97: 'BNB',
 };
 
+export const chain_Native_Token_logo = {
+  1: 'eth',
+  56: 'bnb',
+  97: 'bnb',
+};
+
 export const devidor = (amount, chainId) => {
   if (chainId == 1) {
     return Number(amount) / 10 ** 6;
