@@ -19,7 +19,7 @@ export default function Indicator({ totalUsdtraised }) {
     >
       <Stack textAlign="center" p={3}>
         <Typography gutterBottom variant="h4" color={theme.palette.common.white}>
-          ${totalUsdtraised}
+          ${Number(totalUsdtraised).toFixed(2)}
         </Typography>
 
         <Stack spacing={0.5}>
