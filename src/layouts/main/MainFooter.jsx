@@ -111,6 +111,7 @@ import Heading from '../../components/Heading';
 import GradientText from '../../components/GradientText';
 import IconButtonAnimate from '../../components/animate/IconButtonAnimate';
 import Iconify from '../../components/Iconify';
+import { Link } from 'react-router-dom';
 
 const RootStyle = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -167,9 +168,11 @@ export default function MainFooter() {
                 <Grid item xs={12}>
                   <Stack pt={2} direction="row" spacing={1.5} justifyContent="start">
                     {socialLinks.map((link) => (
-                      <IconButtonAnimate key={link.name}>
-                        <Iconify icon={link.icon} height={40} width={40} />
-                      </IconButtonAnimate>
+                      <Box key={link.name} component={Link} to={link.link} target="_blank">
+                        <IconButtonAnimate>
+                          <Iconify icon={link.icon} height={40} width={40} />
+                        </IconButtonAnimate>
+                      </Box>
                     ))}
                   </Stack>
                 </Grid>

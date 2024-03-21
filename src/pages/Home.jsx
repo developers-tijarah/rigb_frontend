@@ -1,12 +1,12 @@
 import Page from '../components/Page';
-import HomePreSale from '../sections/preSale/HomePreSale';
-import { PreSaleLaunchPad } from '../sections/preSale/PreSaleLaunchPad';
+// import HomePreSale from '../sections/preSale/HomePreSale';
+import PreSaleHero from '../sections/preSale/PreSaleHero';
 
 export default function Home() {
   return (
     <Page>
       {/* <HomePreSale /> */}
-      <PreSaleLaunchPad />
+      <PreSaleHero />
     </Page>
   );
 }
