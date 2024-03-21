@@ -105,7 +105,7 @@ export default function WalletConnectForm({ token }) {
           variant="filled"
           fullWidth
           size="small"
-          label={`Amount in ${chainId ? chain_Native_Token[`${chainId}`] : `eth`}`}
+          label={`Amount in ${token}`}
           InputProps={{ disableUnderline: true }}
           onChange={(e) => setEnteredAmount(e.target.value)}
         />

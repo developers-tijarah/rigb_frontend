@@ -31,7 +31,7 @@ const RootStyle = styled(m.div)(({ theme }) => ({
 }));
 
 export default function PreSaleHero() {
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState('ETH');
   const { address, chainId } = useWeb3ModalAccount();
   const { walletProvider } = useWeb3ModalProvider();
   const [totalUsdtraised, setTotalUSDTRaised] = useState(0);

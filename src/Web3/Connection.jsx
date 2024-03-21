@@ -1071,7 +1071,7 @@ const tokendbi = [
   },
 ];
 
-const contractAddress = '0x025490ae748eed3fD5C6c42193af44e0E343810d';
+const contractAddress = '0x427316bf265Fd660B66c397861f0185d2821b636';
 
 const bnbtestnetRPC = "https://bsc-testnet.blockpi.network/v1/rpc/public"
 const bnbmainnetRPC = "https://binance.llamarpc.com"
