@@ -1,38 +1,18 @@
+import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
-import { Stack, Link } from '@mui/material';
-import { styled } from '@mui/material/styles';
+// @mui
+import { Stack, styled } from '@mui/material';
+import { useTheme } from '@emotion/react';
 
-const MENU_CONFIG = [
-  {
-    title: 'Home',
-    path: '/',
-  },
-  {
-    title: 'How It Works',
-    path: '/how-it-works',
-  },
-  {
-    title: 'Proof of Reserve',
-    path: '/proof-of-reserve',
-  },
-  {
-    title: 'Royal Gold',
-    path: '/rxau',
-  },
-  {
-    title: 'Royal Dollar',
-    path: '/royal',
-  },
-  {
-    title: 'News',
-    path: '/news',
-  },
-];
+// ----------------------------------------------------------------------------------------------------
 
-const LinkStyle = styled(Link)(({ theme }) => ({
+const LinkStyle = styled(RouterLink)(({ theme, isOffset }) => ({
   ...theme.typography.subtitle1,
-  color: theme.palette.text.primary,
+  color: theme.palette.text.secondary,
+  textTransform: 'capitalize',
   marginRight: theme.spacing(5),
+  textDecoration: 'none',
+  ...(isOffset && { color: theme.palette.text.secondary }),
   transition: theme.transitions.create('opacity', {
     duration: theme.transitions.duration.shorter,
   }),
@@ -42,18 +22,26 @@ const LinkStyle = styled(Link)(({ theme }) => ({
   },
 }));
 
-export default function MenuDesktop() {
+MenuDesktop.propTypes = {
+  isHome: PropTypes.bool,
+  isOffset: PropTypes.bool,
+  menu: PropTypes.array,
+};
+
+export default function MenuDesktop({ menu, isHome, isOffset }) {
+  const theme = useTheme();
+
   return (
     <Stack direction="row">
-      {MENU_CONFIG.map(({ title, path }) => (
+      {menu.map(({ title, to }) => (
         <LinkStyle
+          isHome={isHome}
+          isOffset={isOffset}
           key={title}
-          component={RouterLink}
-          to={path}
-          end={path === '/'}
+          to={to}
           sx={{
             '&.active': {
-              color: 'primary.main',
+              color: theme.palette.primary.main,
             },
           }}
         >

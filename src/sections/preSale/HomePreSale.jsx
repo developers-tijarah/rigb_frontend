@@ -47,23 +47,21 @@ const ButtonStyle = styled(Button)(({ theme }) => ({
   borderRadius: '100px',
 }));
 
-export default function HomePreSale() {
+export default function PreSale() {
+  const [token, setToken] = useState('');
 
-  const [token, setToken] = useState('')
+  const { address, chainId } = useWeb3ModalAccount();
+  const { walletProvider } = useWeb3ModalProvider();
+  const [totalUsdtraised, setTotalUSDTRaised] = useState(0);
 
-  const { address, chainId } = useWeb3ModalAccount()
-  const { walletProvider } = useWeb3ModalProvider()
-  const [totalUsdtraised, setTotalUSDTRaised] = useState(0)
-
-  useEffect(()=>{
-    const init =async()=>{
-      const contract = await Fixprovider_Contract()
+  useEffect(() => {
+    const init = async () => {
+      const contract = await Fixprovider_Contract();
       const price = await contract.methods.totalUSDTRaised().call();
-      setTotalUSDTRaised(devidor(price, chainId))
-    }
-    init()
-  },[address, walletProvider, chainId])
-
+      setTotalUSDTRaised(devidor(price, chainId));
+    };
+    init();
+  }, [address, walletProvider, chainId]);
 
   return (
     <RootStyle>
@@ -107,10 +105,10 @@ export default function HomePreSale() {
                 ROYAL Pre-Sale
               </Typography>
 
-              <Indicator totalUsdtraised={totalUsdtraised}/>
-              <SupportTokens tokens={TOKENS} setToken={setToken}/>
+              <Indicator totalUsdtraised={totalUsdtraised} />
+              <SupportTokens tokens={TOKENS} setToken={setToken} />
 
-              <WalletConnectForm token={token}/>
+              <WalletConnectForm token={token} />
 
               <Link>
                 <Typography>How to Buy</Typography>
