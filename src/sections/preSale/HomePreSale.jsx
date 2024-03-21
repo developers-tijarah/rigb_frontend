@@ -1,8 +1,12 @@
-import { Box, Button, Card, Link, Stack, Typography } from '@mui/material';
+/* eslint-disable no-unused-vars */
+import { Box, Button, Card, Link, Stack, Typography, useScrollTrigger } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Indicator from '../../components/Indicator';
 import SupportTokens from '../../components/SupportTokens';
 import WalletConnectForm from '../../components/WalletConnectForm';
+import { useEffect, useState } from 'react';
+import { useWeb3Modal, useWeb3ModalAccount, useWeb3ModalProvider } from '@web3modal/ethers/react';
+import { Fixprovider_Contract, devidor, providerWC_Contract } from '../../Web3/Connection';
 
 const TOKENS = [
   {
@@ -43,7 +47,22 @@ const ButtonStyle = styled(Button)(({ theme }) => ({
   borderRadius: '100px',
 }));
 
-export default function HomePreSale() {
+export default function PreSale() {
+  const [token, setToken] = useState('');
+
+  const { address, chainId } = useWeb3ModalAccount();
+  const { walletProvider } = useWeb3ModalProvider();
+  const [totalUsdtraised, setTotalUSDTRaised] = useState(0);
+
+  useEffect(() => {
+    const init = async () => {
+      const contract = await Fixprovider_Contract();
+      const price = await contract.methods.totalUSDTRaised().call();
+      setTotalUSDTRaised(devidor(price, chainId));
+    };
+    init();
+  }, [address, walletProvider, chainId]);
+
   return (
     <RootStyle>
       <Box mx={20}>
@@ -86,10 +105,10 @@ export default function HomePreSale() {
                 ROYAL Pre-Sale
               </Typography>
 
-              <Indicator />
-              <SupportTokens tokens={TOKENS} />
+              <Indicator totalUsdtraised={totalUsdtraised} />
+              <SupportTokens tokens={TOKENS} setToken={setToken} />
 
-              <WalletConnectForm />
+              <WalletConnectForm token={token} />
 
               <Link>
                 <Typography>How to Buy</Typography>

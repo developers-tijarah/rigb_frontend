@@ -1,62 +1,80 @@
 // @mui
-import { AppBar, Box, Toolbar } from '@mui/material';
+import { AppBar, Container, Toolbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
-
 // locals
-import getCssStyles from '../../utils/getCssStyles';
-import { HEADER } from '../../config';
+import menu from './menuConfig';
+import MenuDesktop from './MenuDesktop';
+import MenuMobile from './MenuMobile';
+import logo from '../../assets/logo.png';
+// hooks
 import useOffset from '../../hooks/useOffset';
 import useResponsive from '../../hooks/useResponsive';
+// config
+import { HEADER } from '../../config';
+// utils
+import getCssStyles from '../../utils/getCssStyles';
+// components
 import Logo from '../../components/Logo';
-import MenuDesktop from './MenuDesktop';
-import brandLogo from '../../assets/BRAND.png';
 
-const AppBarStyle = styled(AppBar, {
-  shouldForwardProp: (prop) => prop !== 'isOffset',
-})(({ isOffset, theme }) => ({
-  ...getCssStyles(theme).bgBlur(),
-  boxShadow: 'none',
+// ----------------------------------------------------------------------------------------------------
+
+const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
   height: HEADER.MOBILE_HEIGHT,
-  zIndex: theme.zIndex.appBar + 1, // TODO: remove or not
-  transition: theme.transitions.create('height', {
+  transition: theme.transitions.create(['height', 'background-color'], {
+    easing: theme.transitions.easing.easeInOut,
     duration: theme.transitions.duration.shorter,
   }),
-  [theme.breakpoints.up('lg')]: {
+  [theme.breakpoints.up('md')]: {
     height: HEADER.MAIN_DESKTOP_HEIGHT,
-    ...(isOffset && { height: HEADER.MAIN_DESKTOP_OFFSET_HEIGHT }),
   },
 }));
 
-// ----------------------------------------------------------------------------------------------------
+const ToolbarShadowStyle = styled('div')(({ theme }) => ({
+  left: 0,
+  right: 0,
+  bottom: 0,
+  height: 24,
+  zIndex: -1,
+  margin: 'auto',
+  borderRadius: '50%',
+  position: 'absolute',
+  width: `calc(100% - 48px)`,
+  boxShadow: theme.customShadow?.z8,
+}));
 
 export default function MainHeader() {
   const isOffset = useOffset(HEADER.MAIN_DESKTOP_HEIGHT);
 
-  const isDesktop = useResponsive('up', 'lg');
+  const isDesktop = useResponsive({ query: 'up', key: 'lg' });
 
   return (
-    <AppBarStyle isOffset={isOffset}>
-      <Toolbar
+    <AppBar sx={{ boxShadow: 0, bgcolor: 'transparent' }}>
+      <ToolbarStyle
         disableGutters
-        sx={{
-          minHeight: '100% !important',
-        }}
+        sx={(theme) => ({
+          ...(isOffset && {
+            ...getCssStyles(theme).bgBlur(),
+            height: { md: HEADER.MAIN_DESKTOP_HEIGHT - 16 },
+          }),
+        })}
       >
-        <Box
+        <Container
           sx={{
             display: 'flex',
-            flexGrow: 1,
             alignItems: 'center',
             justifyContent: 'space-between',
-            mx: 20,
-            width: '100%',
           }}
         >
-          <Logo link="/" image={brandLogo} size={50} />
+          <Logo image={logo} size={40} />
+          <div />
 
-          {isDesktop && <MenuDesktop />}
-        </Box>
-      </Toolbar>
-    </AppBarStyle>
+          {isDesktop && <MenuDesktop menu={menu} isOffset={isOffset} />}
+
+          {!isDesktop && <MenuMobile menu={menu} isOffset={isOffset} />}
+        </Container>
+      </ToolbarStyle>
+
+      {isOffset && <ToolbarShadowStyle />}
+    </AppBar>
   );
 }
